@@ -40,10 +40,9 @@ class SimpleCounterPage extends StatefulWidget {
 class _SimpleCounterPageState extends State<SimpleCounterPage> {
   @override
   Widget build(BuildContext context) {
+    print("build counter");
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -52,6 +51,11 @@ class _SimpleCounterPageState extends State<SimpleCounterPage> {
               'You have pushed the button this many times:',
             ),
             MyBlocBuilder<SimpleCounterBloc, SimpleCounterState>(
+              buildWhen: (previousState, currentState) {
+                print("previousState ${previousState.count}");
+                print("currentState ${currentState.count}");
+                return currentState.count % 2 == 0;
+              },
               builder: (context, state) {
                 return Text(
                   '${state.count}',
@@ -63,7 +67,6 @@ class _SimpleCounterPageState extends State<SimpleCounterPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        // onPressed: () {},
         onPressed: context.read<SimpleCounterBloc>().increase,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
