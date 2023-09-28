@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_own_cubit/feature/counter_cubit/simple_counter.dart';
 
 import 'feature/simple_counter_cubit/simple_counter.dart';
 import 'feature/simple_counter_notifier/simple_counter.dart';
@@ -15,6 +16,8 @@ class MyApp extends StatelessWidget {
         return SimpleCounterWithNotifier();
       case 1:
         return SimpleCounterWithCubit();
+      case 2:
+        return CounterWithCubit();
       default:
         return SizedBox();
     }

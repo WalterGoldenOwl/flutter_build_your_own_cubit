@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:my_own_cubit/feature/simple_counter_cubit/logic/simple_counter_state.dart';
-import 'package:my_own_cubit/my_state_management/my_builder.dart';
-import 'package:my_own_cubit/my_state_management/my_cubit.dart';
-import 'package:my_own_cubit/my_state_management/my_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_own_cubit/feature/counter_cubit/logic/counter_cubit.dart';
+import 'logic/counter_state.dart';
 
-import 'logic/simple_counter_bloc.dart';
-
-class SimpleCounterWithCubit extends StatelessWidget {
-  const SimpleCounterWithCubit({super.key});
+class CounterWithCubit extends StatelessWidget {
+  const CounterWithCubit({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MyBlocProvider(
-      create: (_) => SimpleCounterBloc(),
+    return BlocProvider(
+      create: (_) => CounterBloc(),
       child: _buildBody(),
     );
   }
@@ -23,21 +20,21 @@ class SimpleCounterWithCubit extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SimpleCounterPage(title: 'Flutter Demo Home Page'),
+      home: const CounterPage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class SimpleCounterPage extends StatefulWidget {
-  const SimpleCounterPage({super.key, required this.title});
+class CounterPage extends StatefulWidget {
+  const CounterPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<SimpleCounterPage> createState() => _SimpleCounterPageState();
+  State<CounterPage> createState() => _CounterPageState();
 }
 
-class _SimpleCounterPageState extends State<SimpleCounterPage> {
+class _CounterPageState extends State<CounterPage> {
   @override
   Widget build(BuildContext context) {
     print("build counter");
@@ -50,7 +47,7 @@ class _SimpleCounterPageState extends State<SimpleCounterPage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            MyBlocBuilder<SimpleCounterBloc, SimpleCounterState>(
+            BlocBuilder<CounterBloc, CounterState>(
               buildWhen: (previousState, currentState) {
                 print("previousState ${previousState.count}");
                 print("currentState ${currentState.count}");
@@ -67,7 +64,7 @@ class _SimpleCounterPageState extends State<SimpleCounterPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: context.read<SimpleCounterBloc>().increase,
+        onPressed: context.read<CounterBloc>().increase,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),

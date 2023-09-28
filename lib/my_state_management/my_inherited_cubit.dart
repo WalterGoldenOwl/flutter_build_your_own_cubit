@@ -6,7 +6,5 @@ class MyInheritedNotifier<C extends MyCubit> extends InheritedNotifier {
     super.key,
     required super.child,
     required MyCubit myCubit,
-  }) : super(
-          notifier: myCubit,
-        );
+  }) : super(notifier: myCubit);
 }
